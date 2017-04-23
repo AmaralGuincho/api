@@ -1,0 +1,48 @@
+{
+  "name": "amaral-guincho-api",
+  "version": "1.0.0",
+  "description": "A API for all Amaral Guincho services",
+  "main": "app.js",
+  "scripts": {
+    "start": "babel-node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test-integration": "mocha --opts test/integration/mocha.opts test/integration/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AmaralGuincho/api.git"
+  },
+  "keywords": [
+    "es6",
+    "babel",
+    "sequelize",
+    "mysql",
+    "guincho",
+    "api"
+  ],
+  "author": "Caio Amaral Corrêa <caiobep@me.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/AmaralGuincho/api/issues"
+  },
+  "homepage": "https://github.com/AmaralGuincho/api#readme",
+  "dependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "express": "^4.15.2",
+    "mysql": "^2.13.0",
+    "sequelize": "^3.30.4"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.3",
+    "eslint-plugin-standard": "^3.0.1",
+    "mocha": "^3.2.0",
+    "supertest": "^3.0.0"
+  }
+}
