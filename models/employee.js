@@ -26,9 +26,15 @@ export default (sequelize, DataTypes) => sequelize.define('employee', {
     field: 'lastname',
   },
   dob: {
-    type: DataTypes.TEXT,
+    type: DataTypes.DATEONLY,
     allowNull: true,
     field: 'dob',
+    get() {
+      const datetime = this.getDataValue('dob');
+      const parsedDate = new Date(datetime);
+      const dateOnly = parsedDate.toISOString().substring(0, 10);
+      return dateOnly;
+    },
   },
   cpf: {
     type: DataTypes.TEXT,
