@@ -16,29 +16,29 @@ app.route('/employee')
   .get((req, res) => {
     Employee.findAll({})
     .then(result => res.json(result))
-    .catch(err => res.status(412));
+    .catch(() => res.status(412));
   })
   .post((req, res) => {
     Employee.create(req.body)
       .then(result => res.json(result))
-      .catch(err => res.status(412));
+      .catch(() => res.status(412));
   });
 
 app.route('/employee/:id')
   .get((req, res) => {
     Employee.findOne({ where: req.params })
     .then(result => res.json(result))
-    .catch(err => res.status(412));
+    .catch(() => res.status(412));
   })
   .put((req, res) => {
     Employee.update(req.body, { where: req.params })
     .then(result => res.json(result))
-    .catch(err => res.status(412));
+    .catch(() => res.status(412));
   })
   .delete((req, res) => {
     Employee.destroy({ where: req.params })
-    .then(result => res.sendStatus(204))
-    .catch(err => res.status(412));
+    .then(() => res.sendStatus(204))
+    .catch(() => res.status(412));
   });
 
 export default app;
