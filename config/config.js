@@ -1,5 +1,5 @@
 export default {
-  database: 'agdemo',
+  database: (process.env.NODE_ENV === 'test') ? 'agdemo' : 'amaralguincho',
   username: 'root',
   password: 'password',
   params: {

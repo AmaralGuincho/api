@@ -8,7 +8,8 @@
     "lint": "eslint '**/*.js'",
     "lint:fix": "eslint '**/*.js' --fix",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "test-integration": "mocha --opts test/integration/mocha.opts test/integration/*.js"
+    "test-integration": "NODE_ENV=test mocha --opts test/integration/mocha.opts test/integration/*.js",
+    "test-unit": "NODE_ENV=test mocha --opts test/unit/mocha.opts test/unit/**/*.js"
   },
   "repository": {
     "type": "git",
@@ -37,7 +38,8 @@
     "eslint-plugin-react": "^6.10.3",
     "eslint-plugin-standard": "^3.0.1",
     "mocha": "^3.2.0",
-    "supertest": "^3.0.0"
+    "supertest": "^3.0.0",
+    "testdouble": "^2.1.2"
   },
   "dependencies": {
     "babel": "^6.23.0",
