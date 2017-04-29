@@ -1,4 +1,4 @@
-/* eslint no-console: "error"*/
+/* eslint no-console: "warn"*/
 import app from './app';
 
 app.listen(app.get('port'), () => {
