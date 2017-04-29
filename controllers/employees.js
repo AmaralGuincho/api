@@ -1,9 +1,11 @@
-const defaultResponse = (data, statusCode = 200) => ({
+import HttpStatus from 'http-status';
+
+const defaultResponse = (data, statusCode = HttpStatus.OK) => ({
   data,
   statusCode,
 });
 
-const errorResponse = (message, statusCode = 400) => defaultResponse({
+const errorResponse = (message, statusCode = HttpStatus.BAD_REQUEST) => defaultResponse({
   error: message }, statusCode);
 
 class EmployeesController {
@@ -25,20 +27,20 @@ class EmployeesController {
 
   create(data) {
     return this.Employee.create(data)
-      .then(result => defaultResponse(result, 201))
-      .catch(err => errorResponse(err.message, 422));
+      .then(result => defaultResponse(result, HttpStatus.CREATED))
+      .catch(err => errorResponse(err.message, HttpStatus.UNPROCESSABLE_ENTITY));
   }
 
   update(data, params) {
     return this.Employee.update(data, { where: params })
       .then(result => defaultResponse(result))
-      .catch(err => errorResponse(err.message, 422));
+      .catch(err => errorResponse(err.message, HttpStatus.UNPROCESSABLE_ENTITY));
   }
 
   delete(params) {
     return this.Employee.destroy({ where: params })
-      .then(result => defaultResponse(result, 204))
-      .catch(err => errorResponse(err.message, 422));
+      .then(result => defaultResponse(result, HttpStatus.NO_CONTENT))
+      .catch(err => errorResponse(err.message, HttpStatus.UNPROCESSABLE_ENTITY));
   }
 }
 
