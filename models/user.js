@@ -1,3 +1,5 @@
+import bcrypt from 'bcrypt';
+
 export default (sequelize, DataTypes) => sequelize.define('user', {
   employee: {
     type: DataTypes.BIGINT,
@@ -18,4 +20,13 @@ export default (sequelize, DataTypes) => sequelize.define('user', {
   },
 }, {
   tableName: 'user',
+  hooks: {
+    beforeCreate: (user) => {
+      const salt = bcrypt.genSaltSync();
+      user.set('password', bcrypt.hashSync(user.password, salt));
+    },
+  },
+  classMethods: {
+    isPassword: (encodedPassword, password) => bcrypt.compareSync(password, encodedPassword),
+  },
 });

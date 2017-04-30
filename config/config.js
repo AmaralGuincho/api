@@ -5,6 +5,9 @@ export default {
   params: {
     dialect: 'mysql',
     host: '127.0.0.1',
+    define: {
+      timestamps: false,
+    },
     // MySQL Port
     port: '3306',
   },
@@ -13,4 +16,6 @@ export default {
   },
   // API PORT
   port: process.env.PORT || 3000,
+  jwtSecret: process.env.SECRET || 'Shhhh',
+  jwtSession: { session: false },
 };

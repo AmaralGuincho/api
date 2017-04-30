@@ -8,7 +8,7 @@
     "lint": "eslint '**/*.js'",
     "lint:fix": "eslint '**/*.js' --fix",
     "test": "npm run lint && npm run test-integration && npm run test-unit && npm run test-contracts",
-    "test-integration": "NODE_ENV=test mocha --opts test/integration/mocha.opts test/integration/*.js",
+    "test-integration": "NODE_ENV=test mocha --opts test/integration/mocha.opts test/integration/**/*.js",
     "test-unit": "NODE_ENV=test mocha --opts test/unit/mocha.opts test/unit/**/*.js",
     "test-contracts": "NODE_ENV=test mocha --opts test/contracts/mocha.opts test/contracts/contracts/**/*.js"
   },
@@ -52,7 +52,10 @@
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "http-status": "^1.0.1",
+    "jwt-simple": "^0.5.1",
     "mysql": "^2.13.0",
+    "passport": "^0.3.2",
+    "passport-jwt": "^2.2.1",
     "sequelize": "^3.30.4"
   }
 }

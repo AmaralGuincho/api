@@ -19,9 +19,7 @@ export default function (app) {
   if (!database) {
     const config = app.config;
     const sequelize = new Sequelize(
-        config.database,
-        config.username,
-        config.password,
+        config.databaseUrl(),
         config.params);
 
     database = {
