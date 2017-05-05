@@ -1,26 +1,17 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import config from './config/config';
-import datasource from './config/datasource';
-import employeesRouter from './routes/employees';
-import usersRouter from './routes/users';
-import authRouter from './routes/auth';
-import authorization from './auth';
+import config from './config';
+// import routes from './routes';
+import models from './models';
 
 const app = express();
-app.config = config;
-app.datasource = datasource(app);
 
-app.set('port', config.port);
-app.use(bodyParser.json());
-
-const auth = authorization(app);
-app.use(auth.initialize());
-app.auth = auth;
-
-
-employeesRouter(app);
-usersRouter(app);
-authRouter(app);
+models.sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connected to the database!');
+    app.use(bodyParser.json());
+    app.listen(config.port, () => console.log(`Listening on ${config.port}`));
+  });
 
 export default app;
