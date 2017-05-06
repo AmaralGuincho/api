@@ -1,46 +1,37 @@
-import HttpStatus from 'http-status';
-
-const defaultResponse = (data, statusCode = HttpStatus.OK) => ({
-  data,
-  statusCode,
-});
-
-const errorResponse = (message, statusCode = HttpStatus.BAD_REQUEST) => defaultResponse({
-  error: message }, statusCode);
-
 class EmployeesController {
+
   constructor(Employee) {
     this.Employee = Employee;
   }
 
-  getAll() {
+  getAll(req, res) {
     return this.Employee.findAll({})
-      .then(result => defaultResponse(result))
-      .catch(err => errorResponse(err.message));
+      .then(result => res.send(result))
+      .catch(err => res.status(400).send(err.message));
   }
 
-  getById(params) {
-    return this.Employee.findOne({ where: params })
-    .then(result => defaultResponse(result))
-    .catch(err => errorResponse(err.message));
+  getById(req, res) {
+    return this.Employee.findOne({ where: req.params.id })
+    .then(result => res.send(result))
+    .catch(err => res.status(400).send(err.message));
   }
 
-  create(data) {
-    return this.Employee.create(data)
-      .then(result => defaultResponse(result, HttpStatus.CREATED))
-      .catch(err => errorResponse(err.message, HttpStatus.UNPROCESSABLE_ENTITY));
+  create(req, res) {
+    return this.Employee.create(req.body)
+      .then(result => res.sendStatus(201).send(result))
+      .catch(err => res.status(412).send(err.message));
   }
 
-  update(data, params) {
-    return this.Employee.update(data, { where: params })
-      .then(result => defaultResponse(result))
-      .catch(err => errorResponse(err.message, HttpStatus.UNPROCESSABLE_ENTITY));
+  update(req, res) {
+    return this.Employee.update(req.body, { where: req.params })
+      .then(() => res.sendStatus(200))
+      .catch(err => res.status(412).send(err.message));
   }
 
-  delete(params) {
-    return this.Employee.destroy({ where: params })
-      .then(result => defaultResponse(result, HttpStatus.NO_CONTENT))
-      .catch(err => errorResponse(err.message, HttpStatus.UNPROCESSABLE_ENTITY));
+  delete(req, res) {
+    return this.Employee.destroy({ where: req.params })
+      .then(() => res.sendStatus(204))
+      .catch(err => res.status(400).send(err.message));
   }
 }
 

@@ -1,44 +1,14 @@
+import express from 'express';
 import UsersController from '../controllers/users';
+import Users from '../models/user';
 
-export default (app) => {
-  const usersController = new UsersController(app.datasource.models.user);
+const route = express.Router();
+const usersController = new UsersController(Users);
 
-  app.route('/users')
-    .get((req, res) => {
-      usersController.getAll()
-        .then((response) => {
-          res.status(response.statusCode);
-          res.json(response.data);
-        });
-    })
+route.get('/', (req, res) => usersController.getAll(req, res));
+route.get('/:employee', (req, res) => usersController.getById(req, res));
+route.post('/', (req, res) => usersController.create(req, res));
+route.put('/:employee', (req, res) => usersController.update(req, res));
+route.delete('/:employee', (req, res) => usersController.delete(req, res));
 
-    .post((req, res) => {
-      usersController.create(req.body)
-        .then((response) => {
-          res.status(response.statusCode);
-          res.json(response.data);
-        });
-    });
-
-  app.route('/users/:employee')
-    .get((req, res) => {
-      usersController.getById(req.params)
-        .then((response) => {
-          res.status(response.statusCode);
-          res.json(response.data);
-        });
-    })
-    .put((req, res) => {
-      usersController.update(req.body, req.params)
-        .then((response) => {
-          res.status(response.statusCode);
-          res.json(response.data);
-        });
-    })
-    .delete((req, res) => {
-      usersController.delete(req.params)
-        .then((response) => {
-          res.sendStatus(response.statusCode);
-        });
-    });
-};
+export default route;

@@ -1,44 +1,15 @@
+import express from 'express';
 import EmployeesController from '../controllers/employees';
+import { models } from '../models';
 
-export default (app) => {
-  const employeesController = new EmployeesController(app.datasource.models.employee);
+const route = express.Router();
+const Employee = models.employee;
 
-  app.route('/employee')
-    .get((req, res) => {
-      employeesController.getAll()
-        .then((response) => {
-          res.status(response.statusCode);
-          res.json(response.data);
-        });
-    })
+const employeesController = new EmployeesController(Employee);
+route.get('/', (req, res) => employeesController.getAll(req, res));
+route.get('/:id', (req, res) => employeesController.getById(req, res));
+route.post('/', (req, res) => employeesController.create(req, res));
+route.put('/:id', (req, res) => employeesController.update(req, res));
+route.delete('/:id', (req, res) => employeesController.delete(req, res));
 
-    .post((req, res) => {
-      employeesController.create(req.body)
-        .then((response) => {
-          res.status(response.statusCode);
-          res.json(response.data);
-        });
-    });
-
-  app.route('/employee/:id')
-    .get((req, res) => {
-      employeesController.getById(req.params)
-        .then((response) => {
-          res.status(response.statusCode);
-          res.json(response.data);
-        });
-    })
-    .put((req, res) => {
-      employeesController.update(req.body, req.params)
-        .then((response) => {
-          res.status(response.statusCode);
-          res.json(response.data);
-        });
-    })
-    .delete((req, res) => {
-      employeesController.delete(req.params)
-        .then((response) => {
-          res.sendStatus(response.statusCode);
-        });
-    });
-};
+export default route;
