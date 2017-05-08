@@ -6,13 +6,11 @@ import { sequelize } from './models';
 
 const app = express();
 
-sequelize
-  .sync()
-  .then(() => {
-    console.log('Connected to the database!');
-    app.use('/', routes);
-    app.use(bodyParser.json());
-    app.listen(config.port, () => console.log(`Listening on ${config.port}`));
-  });
+const configureExpress = function () {
+  app.use('/', routes);
+  app.use(bodyParser.json());
 
-export default app;
+  return app;
+};
+
+export default () => sequelize.sync().then(configureExpress);

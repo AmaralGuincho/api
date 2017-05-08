@@ -1,0 +1,11 @@
+import setupApp from '../app';
+import { port } from '../config';
+
+setupApp()
+  .then(app => app.listen(port, () => {
+    console.log(`Listening on ${port}`);
+  }))
+  .catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
