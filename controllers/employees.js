@@ -11,7 +11,7 @@ class EmployeesController {
   }
 
   getById(req, res) {
-    return this.Employee.findOne({ where: req.params.id })
+    return this.Employee.findOne({ where: req.params })
     .then(result => res.send(result))
     .catch(err => res.status(400).send(err.message));
   }
