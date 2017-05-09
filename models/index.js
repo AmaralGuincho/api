@@ -3,11 +3,9 @@ import fs from 'fs';
 import path from 'path';
 import config from '../config';
 
-let database = null;
+export const sequelize = new Sequelize(config.databaseUrl(), config.params);
 
-const sequelize = new Sequelize(config.databaseUrl(), config.params);
-
-const models = [];
+const database = [];
 
 fs
   .readdirSync(__dirname)
@@ -15,13 +13,15 @@ fs
   .forEach((file) => {
     const modelPath = path.join(__dirname, file);
     const model = sequelize.import(modelPath);
-    models[model.name] = model;
+    database[model.name] = model;
   });
 
-database = {
+export const Models = database;
+
+const everything = {
   sequelize,
   Sequelize,
-  models,
+  database,
 };
 
-export default database;
+export default everything;

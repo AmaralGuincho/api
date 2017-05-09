@@ -1,8 +1,9 @@
-import express from 'express';
+import { Router } from 'express';
 import UsersController from '../controllers/users';
-import Users from '../models/user';
+import { Models } from '../models';
 
-const route = express.Router();
+const route = Router();
+const Users = Models.user;
 const usersController = new UsersController(Users);
 
 route.get('/', (req, res) => usersController.getAll(req, res));

@@ -7,8 +7,8 @@ import { sequelize } from './models';
 const app = express();
 
 const configureExpress = function () {
-  app.use('/', routes);
   app.use(bodyParser.json());
+  app.use('/', routes);
 
   return app;
 };

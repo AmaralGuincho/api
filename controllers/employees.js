@@ -18,7 +18,7 @@ class EmployeesController {
 
   create(req, res) {
     return this.Employee.create(req.body)
-      .then(result => res.sendStatus(201).send(result))
+      .then(result => res.status(201).send(result))
       .catch(err => res.status(412).send(err.message));
   }
 

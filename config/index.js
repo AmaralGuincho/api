@@ -1,4 +1,4 @@
-export default {
+const config = {
   database: (process.env.NODE_ENV === 'test') ? 'agdemo' : 'amaralguincho',
   username: 'root',
   password: 'password',
@@ -19,3 +19,9 @@ export default {
   jwtSecret: process.env.SECRET || 'Shhhh',
   jwtSession: { session: false },
 };
+
+
+export const port = config.port;
+export const dbUrl = config.databaseUrl();
+
+export default config;
