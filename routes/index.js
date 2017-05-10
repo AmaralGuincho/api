@@ -1,13 +1,12 @@
-import express from 'express';
+import { Router } from 'express';
 
 import employeesRouter from './employees';
 import usersRouter from './users';
-import authRouter from './auth';
+// import authRouter from './auth';
 
-const router = express.Router();
+const router = Router();
 
-router.get('/employees', employeesRouter);
-router.get('/users', usersRouter);
-router.get('/', (req, res) => res.send('Hello World!'));
+router.use('/employees', employeesRouter);
+router.use('/users', usersRouter);
 
 export default router;
